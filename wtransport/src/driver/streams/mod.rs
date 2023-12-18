@@ -160,7 +160,7 @@ impl QuicRecvStream {
             .read_exact(buf)
             .await
             .map_err(|quic_error| match quic_error {
-                quinn::ReadExactError::FinishedEarly => StreamReadExactError::FinishedEarly,
+                quinn::ReadExactError::FinishedEarly(_) => StreamReadExactError::FinishedEarly,
                 quinn::ReadExactError::ReadError(read) => StreamReadExactError::Read(read.into()),
             })
     }
